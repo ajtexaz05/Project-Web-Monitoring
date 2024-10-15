@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mmi', function (Blueprint $table) {
+        Schema::create('mmi_data', function (Blueprint $table) {
             $table->id();
-            $table->string('mmi');
+            $table->string('data_mmi');
+            $table->string('level');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mmi');
+        Schema::dropIfExists('mmi_data');
     }
 };

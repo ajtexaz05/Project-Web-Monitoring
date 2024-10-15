@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mmi extends Model
+class mmiData extends Model
 {
     use HasFactory;
-    protected $fillable = ['mmi'];
+    protected $fillable = ['data_mmi', 'level'];
 }

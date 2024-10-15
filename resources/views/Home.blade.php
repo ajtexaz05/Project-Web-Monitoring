@@ -14,7 +14,7 @@
         <div class="mmi-display">
             <h2>Tampilan MMI</h2>
             <div class="mmi-list" id="mmi-list">
-                <h3>Data MMI</h3>
+                
             </div>
         </div>
 
@@ -22,7 +22,7 @@
         <div class="sensor-display">
             <h2>Tampilan Data Sensor</h2>
             <div class="sensor-list" id="sensor-list">
-                <h3>Data Sensor</h3>
+                
             </div>
         </div>
     </div>
