@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Mmi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class MmiController extends Controller
 {
@@ -17,20 +18,38 @@ class MmiController extends Controller
     }
 
     // POST
+    // Type 1
+    // public function store(Request $request)
+    // {
+    //     // Validasi input sesuai dengan kolom 'mmi'
+    //     $request->validate([
+    //         'mmi' => 'required|string|max:255',
+    //     ]);
+
+    //     // Buat data baru di tabel MMI
+    //     $mmi = Mmi::create([
+    //         'mmi' => $request->input('mmi'),
+    //     ]);
+
+    //     // Kembalikan respons sukses dengan data yang baru dibuat
+    //     return response()->json($mmi, 201);
+    // }
+
+    // Type 2
     public function store(Request $request)
     {
-        // Validasi input sesuai dengan kolom 'mmi'
-        $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'mmi' => 'required|string|max:255',
         ]);
 
-        // Buat data baru di tabel MMI
-        $mmi = Mmi::create([
-            'mmi' => $request->input('mmi'),
-        ]);
-
-        // Kembalikan respons sukses dengan data yang baru dibuat
-        return response()->json($mmi, 201);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'validasi error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
     }
 
     // GET

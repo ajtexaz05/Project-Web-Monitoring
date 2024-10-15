@@ -1,11 +1,14 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MmiController;
 use App\Http\Controllers\Api\SensorDataController;
 
-// Routing untuk MMI
-Route::resource('mmi', MmiController::class);
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
 
-// Routing untuk Sensor Data
-Route::resource('sensor-data', SensorDataController::class);
+// Rute resource untuk MMI dan Sensor Data
+Route::resource('/mmi', MmiController::class);
+Route::resource('/sensor-data', SensorDataController::class);
