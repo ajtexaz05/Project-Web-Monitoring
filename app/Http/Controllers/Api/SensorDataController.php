@@ -5,68 +5,109 @@ namespace App\Http\Controllers\Api;
 use App\Models\SensorData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class SensorDataController extends Controller
 {
-    // GET
+    /**
+     * Display a listing of the resource.
+     */
+    // Menampilkan data (GET)
     public function index()
     {
-        return response()->json(SensorData::all(), 200);
+        $dataSensor = SensorData::all();
+        return response()->json([
+            'status' => true,
+            'message' => 'Data berhasil ditemukan',
+            'data' => $dataSensor
+        ]);
     }
 
-    // POST
+    /**
+     * Store a newly created resource in storage.
+     */
+    // Untuk Input Data (POST)
     public function store(Request $request)
     {
-        $request->validate([
-            'sensor_value' => 'required|numeric',
+        $validator = Validator::make($request->all(), [
+            'sensor_name' => 'required',
+            'sensor_value' => 'required'
         ]);
 
-        $sensorData = SensorData::create($request->all());
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'validasi error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
-        return response()->json($sensorData, 201);
+        $dataSensor = SensorData::create($request->all());
+        return response()->json([
+            'status' => true,
+            'message' => 'Data berhasil dimasukan',
+            'data' => $dataSensor
+        ], 201);
     }
 
-    // GET
+    /**
+     * Display the specified resource.
+     */
+    // Menampilkan sesuai ID (GET)
     public function show(string $id)
     {
-        $sensorData = SensorData::find($id);
-
-        if (!$sensorData) {
-            return response()->json(['message' => 'Data Sensor Tidak Ditemukan '], 404);
-        }
-
-        return response()->json($sensorData, 200);
+        $dataSensor = SensorData::findOrFail($id);
+        return response()->json([
+            'status' => true,
+            'message' => 'Data berhasil ditemukan',
+            'data' => $dataSensor
+        ]);
     }
 
-    // PUT
+    /**
+     * Update the specified resource in storage.
+     */
+    // Untuk Update Data (PUT)
     public function update(Request $request, string $id)
     {
-        $sensorData = SensorData::find($id);
-
-        if (!$sensorData) {
-            return response()->json(['message' => 'Data Sensor Tidak Ditemukan'], 404);
-        }
-
-        $request->validate([
-            'sensor_value' => 'sometimes|required|numeric',
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'sensor_name' => 'required',
+            'sensor_value' => 'required'
         ]);
 
-        $sensorData->update($request->all());
-
-        return response()->json($sensorData, 200);
-    }
-
-    // DELETE
-    public function destroy(string $id)
-    {
-        $sensorData = SensorData::find($id);
-
-        if (!$sensorData) {
-            return response()->json(['message' => 'Data Sensor Tidak Ditemukan'], 404);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'validasi error',
+                'errors' => $validator->errors()
+            ], 422);
         }
 
-        $sensorData->delete();
+        // Temukan data berdasarkan ID
+        $dataSensor = SensorData::findOrFail($id);
 
-        return response()->json(['message' => 'Data Sensor Sukses Dihapus'], 200);
+        // Update data yang ditemukan
+        $dataSensor->update($request->all());
+
+        // Kembalikan response sukses
+        return response()->json([
+            'status' => true,
+            'message' => 'Data berhasil diperbarui',
+            'data' => $dataSensor
+        ], 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $dataSensor = SensorData::findOrFail($id);
+        $dataSensor->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Data berhasil Dihapus'
+        ], 204);
     }
 }

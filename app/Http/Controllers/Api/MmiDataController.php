@@ -98,7 +98,6 @@ class MmiDataController extends Controller
         ], 200);
     }
 
-
     /**
      * Remove the specified resource from storage.
      */

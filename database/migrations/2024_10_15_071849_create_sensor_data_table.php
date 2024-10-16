@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sensor_data', function (Blueprint $table) {
             $table->id();
+            $table->string('sensor_name');
             $table->float('sensor_value');
             $table->timestamps();
         });
