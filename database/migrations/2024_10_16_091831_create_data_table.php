@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sensor_data', function (Blueprint $table) {
+        Schema::create('data', function (Blueprint $table) {
             $table->id();
-            $table->string('sensor_name');
-            $table->float('sensor_value');
+            $table->float('data');
+            $table->string('mmi');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sensor_data');
+        Schema::dropIfExists('data');
     }
 };
