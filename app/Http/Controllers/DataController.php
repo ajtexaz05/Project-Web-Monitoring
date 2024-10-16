@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class DataController extends Controller
 {
+    public function index()
+    {
+        $data = Data::latest()->first();
+
+        return view(
+            'home',
+            ['data' => $data]
+        );
+    }
+
     public function store(Request $request)
     {
         // Retrieve query parameters from URL
@@ -21,5 +31,12 @@ class DataController extends Controller
 
         // Return the created record as response
         return response()->json($record);
+    }
+
+    public function getData()
+    {
+        $latestData = Data::latest()->take(10)->get();
+
+        return response()->json($latestData);
     }
 }
