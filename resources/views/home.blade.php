@@ -269,7 +269,7 @@
                           <button class="btn btn-primary" type="button">Download</button>
                         </div>
                       </div>
-                      <div class="card-header">
+                      <!--<div class="card-header">
                         <div class="d-flex justify-content-between">
                           <h4 class="mb-0" >Last Huge MMI</h4>
                           
@@ -279,7 +279,7 @@
 
                     </div>
                   </div>
-                </div>
+                </div>-->
                 <!--/ Weekly Overview Chart last-->
 
                 <!-- Transactions -->
