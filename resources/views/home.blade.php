@@ -426,11 +426,19 @@
             xValues.length = 0;
             data.length = 0;
 
-            // Loop through the latest 10 entries
-            newData.slice(0, 10).forEach(entry => {
-              xValues.push(entry.updated_at); // Use the updated_at for x-axis
-              data.push(entry.dataa); // Use the data for y-axis
+            // Bagian yang mengatur format penjelasan untuk tanggal dan waktu
+            // Namun bagian ini udah dihapus
+            newData.slice(0, 10).forEach((entry, index) => {
+            xValues.push(index + 1); // Gunakan angka urutan sebagai x-axis
+            data.push(entry.data);   // Masukkan data ke y-axis
             });
+
+            // Yang bagian ini yang masih memberikan formatnya
+            // // Loop through the latest 10 entries
+            // newData.slice(0, 10).forEach(entry => {
+            //   xValues.push(entry.updated_at); // Use the updated_at for x-axis
+            //   data.push(entry.data); // Use the data for y-axis
+            // });
 
             // Reverse the order of the arrays to display oldest data on the left
             xValues.reverse();
