@@ -79,7 +79,7 @@
                   <div class="card">
                     <div class="card-body text-nowrap">
                       <h3 class="card-title mb-4 flex-wrap text-nowrap">Current MMI</h3>
-                      <p class="mb-2">Lorem Ipsum</p>
+                      <p class="mb-2">MMI Saat Ini :</p>
                       <h1 class="text-primary mb-4" id="mmi-value">{{ $data->data }}</h1>
                       <div class="alert alert-warning" id="alert-warning" role="alert" style="display: none;">
                           Peringatan! MMI di atas normal!
@@ -154,9 +154,7 @@
                         checkMMI(); // Memeriksa MMI saat tombol diklik 
                     });
                 </script>
-                  
-                    
-                    
+                             
                   </div>
                   
                   <div class="card mt-5">
@@ -180,7 +178,7 @@
                                   data-bs-target="#accordionTwo"
                                   aria-expanded="false"
                                   aria-controls="accordionTwo">
-                                  Accordion Item 2
+                                  I-II
                                 </button>
                               </h2>
                               <div
@@ -189,9 +187,8 @@
                                 aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                  Dessert ice cream donut oat cake jelly-o pie sugar plum cheesecake. Bear claw dragée oat cake
-                                  dragée ice cream halvah tootsie roll. Danish cake oat cake pie macaroon tart donut gummies.
-                                  Jelly beans candy canes carrot cake. Fruitcake chocolate chupa chups.
+                                <b>TIDAK DIRASAKAN (Not Felt)</b>
+                                Tidak dirasakan atau dirasakan hanya oleh beberapa orang tetapi terekam oleh alat.
                                 </div>
                               </div>
                             </div>
@@ -204,7 +201,7 @@
                                   data-bs-target="#accordionThree"
                                   aria-expanded="false"
                                   aria-controls="accordionThree">
-                                  Accordion Item 3
+                                  III-V
                                 </button>
                               </h2>
                               <div
@@ -213,9 +210,8 @@
                                 aria-labelledby="headingThree"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                  Oat cake toffee chocolate bar jujubes. Marshmallow brownie lemon drops cheesecake. Bonbon
-                                  gingerbread marshmallow sweet jelly beans muffin. Sweet roll bear claw candy canes oat cake
-                                  dragée caramels. Ice cream wafer danish cookie caramels muffin.
+                                  <b>DIRASAKAN (Felt)</b>
+                                  Dirasakan oleh orang banyak tetapi tidak menimbulkan kerusakan. Benda-benda ringan yang digantung bergoyang dan jendela kaca bergetar.
                                 </div>
                               </div>
                             </div>
@@ -228,7 +224,7 @@
                                   data-bs-target="#accordionFour"
                                   aria-expanded="false"
                                   aria-controls="accordionFour">
-                                  Accordion Item 4
+                                  VI
                                 </button>
                               </h2>
                               <div
@@ -237,9 +233,54 @@
                                 aria-labelledby="headingFour"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                  Oat cake toffee chocolate bar jujubes. Marshmallow brownie lemon drops cheesecake. Bonbon
-                                  gingerbread marshmallow sweet jelly beans muffin. Sweet roll bear claw candy canes oat cake
-                                  dragée caramels. Ice cream wafer danish cookie caramels muffin.
+                                  <b>KERUSAKAN RINGAN (Slight Damage)</b>
+                                  Bagian non struktur bangunan mengalami kerusakan ringan, seperti retak rambut pada dinding, genteng bergeser ke bawah dan sebagian berjatuhan.
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingThree">
+                                <button
+                                  type="button"
+                                  class="accordion-button collapsed"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target="#accordionFour"
+                                  aria-expanded="false"
+                                  aria-controls="accordionFour">
+                                  VII-VIII
+                                </button>
+                              </h2>
+                              <div
+                                id="accordionFour"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingFour"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <b>KERUSAKAN SEDANG (Moderate Damage)</b>
+                                  Banyak Retakan terjadi pada dinding bangunan sederhana, sebagian roboh, kaca pecah. Sebagian plester dinding lepas. Hampir sebagian besar genteng bergeser ke bawah atau jatuh. Struktur bangunan mengalami kerusakan ringan sampai sedang.
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingThree">
+                                <button
+                                  type="button"
+                                  class="accordion-button collapsed"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target="#accordionFour"
+                                  aria-expanded="false"
+                                  aria-controls="accordionFour">
+                                  IX-XII
+                                </button>
+                              </h2>
+                              <div
+                                id="accordionFour"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingFour"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <b>KERUSAKAN BERAT (Heavy Damage)</b>
+                                  Sebagian besar dinding bangunan permanen roboh. Struktur bangunan mengalami kerusakan berat. Rel kereta api melengkung.
                                 </div>
                               </div>
                             </div>
@@ -388,7 +429,7 @@
             // Loop through the latest 10 entries
             newData.slice(0, 10).forEach(entry => {
               xValues.push(entry.updated_at); // Use the updated_at for x-axis
-              data.push(entry.data); // Use the data for y-axis
+              data.push(entry.dataa); // Use the data for y-axis
             });
 
             // Reverse the order of the arrays to display oldest data on the left
