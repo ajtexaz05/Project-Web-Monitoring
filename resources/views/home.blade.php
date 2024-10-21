@@ -75,8 +75,8 @@
             <div class="container-xxl flex-grow-4 container-p-y">
               <div class="row gy-2">
                 <!-- Congratulations card -->
-                <div class="col-md-20 col-lg-6 h-auto">
-                  <div class="card">
+                <div class="col-md-6 col-lg-6 h-auto">
+                  <div class="card mb-3 pt-lg-1">
                     <div class="card-body text-nowrap">
                       <h3 class="card-title mb-4 flex-wrap text-nowrap">Current MMI</h3>
                       <p class="mb-2">MMI Saat Ini :</p>
@@ -97,74 +97,76 @@
               
                       <!-- Tombol untuk memicu suara -->
                       <button id="check-mmi" class="btn btn-primary mt-3">Cek MMI</button>
-                  </div>
+                      <hr>
+                      </div>
               
                   
-                  <script>
-                    const mmiValue = parseFloat(document.getElementById('mmi-value').innerText);
-                    const alertWarning = document.getElementById('alert-warning');
-                    const alertDanger = document.getElementById('alert-danger');
-                    const alertSuccess = document.getElementById('alert-success');
-                    const warningSound = document.getElementById('warning-sound');
-                    const dangerSound = document.getElementById('danger-sound');
-            
-                    let hasInteracted = false;
-                    let soundInterval; // Variabel untuk menyimpan interval
-            
-                    function checkMMI() {
-                        if (mmiValue >= 10.0) {
-                            alertDanger.style.display = 'block'; // Menampilkan peringatan bahaya
-                            alertWarning.style.display = 'none';  // Menyembunyikan peringatan warning
-                            alertSuccess.style.display = 'none';   // Menyembunyikan peringatan sukses
-                            if (hasInteracted) {
-                                dangerSound.play(); // Memutar suara bahaya
+                      <script>
+                        const mmiValue = parseFloat(document.getElementById('mmi-value').innerText);
+                        const alertWarning = document.getElementById('alert-warning');
+                        const alertDanger = document.getElementById('alert-danger');
+                        const alertSuccess = document.getElementById('alert-success');
+                        const warningSound = document.getElementById('warning-sound');
+                        const dangerSound = document.getElementById('danger-sound');
+                
+                        let hasInteracted = false;
+                        let soundInterval; // Variabel untuk menyimpan interval
+                
+                        function checkMMI() {
+                            if (mmiValue >= 10.0) {
+                                alertDanger.style.display = 'block'; // Menampilkan peringatan bahaya
+                                alertWarning.style.display = 'none';  // Menyembunyikan peringatan warning
+                                alertSuccess.style.display = 'none';   // Menyembunyikan peringatan sukses
+                                if (hasInteracted) {
+                                    dangerSound.play(); // Memutar suara bahaya
+                                }
+                                // Mengatur interval untuk memutar suara setiap detik
+                                if (!soundInterval) {
+                                    soundInterval = setInterval(() => dangerSound.play(), 1000);
+                                }
+                            } else if (mmiValue >= 7.0) {
+                                alertWarning.style.display = 'block';  // Menampilkan peringatan warning
+                                alertDanger.style.display = 'none';     // Menyembunyikan peringatan bahaya
+                                alertSuccess.style.display = 'none';    // Menyembunyikan peringatan sukses
+                                if (hasInteracted) {
+                                    warningSound.play(); // Memutar suara peringatan
+                                }
+                                // Mengatur interval untuk memutar suara setiap detik
+                                if (!soundInterval) {
+                                    soundInterval = setInterval(() => warningSound.play(), 1000);
+                                }
+                            } else {
+                                alertWarning.style.display = 'none';    // Menyembunyikan peringatan warning
+                                alertDanger.style.display = 'none';      // Menyembunyikan peringatan bahaya
+                                alertSuccess.style.display = 'block';    // Menampilkan peringatan sukses
+                                clearInterval(soundInterval); // Menghentikan interval suara
+                                soundInterval = null; // Reset interval
                             }
-                            // Mengatur interval untuk memutar suara setiap detik
-                            if (!soundInterval) {
-                                soundInterval = setInterval(() => dangerSound.play(), 1000);
-                            }
-                        } else if (mmiValue >= 7.0) {
-                            alertWarning.style.display = 'block';  // Menampilkan peringatan warning
-                            alertDanger.style.display = 'none';     // Menyembunyikan peringatan bahaya
-                            alertSuccess.style.display = 'none';    // Menyembunyikan peringatan sukses
-                            if (hasInteracted) {
-                                warningSound.play(); // Memutar suara peringatan
-                            }
-                            // Mengatur interval untuk memutar suara setiap detik
-                            if (!soundInterval) {
-                                soundInterval = setInterval(() => warningSound.play(), 1000);
-                            }
-                        } else {
-                            alertWarning.style.display = 'none';    // Menyembunyikan peringatan warning
-                            alertDanger.style.display = 'none';      // Menyembunyikan peringatan bahaya
-                            alertSuccess.style.display = 'block';    // Menampilkan peringatan sukses
-                            clearInterval(soundInterval); // Menghentikan interval suara
-                            soundInterval = null; // Reset interval
                         }
-                    }
-            
-                    // Memeriksa MMI saat halaman dimuat
-                    window.addEventListener('load', () => {
-                        checkMMI(); // Memeriksa MMI saat halaman dimuat
-                    });
-            
-                    // Menangani interaksi pengguna
-                    document.getElementById('check-mmi').addEventListener('click', () => {
-                        hasInteracted = true; // Menandai bahwa pengguna telah berinteraksi
-                        checkMMI(); // Memeriksa MMI saat tombol diklik 
-                    });
-                </script>
-                             
+                
+                        // Memeriksa MMI saat halaman dimuat
+                        window.addEventListener('load', () => {
+                            checkMMI(); // Memeriksa MMI saat halaman dimuat
+                        });
+                
+                        // Menangani interaksi pengguna
+                        document.getElementById('check-mmi').addEventListener('click', () => {
+                            hasInteracted = true; // Menandai bahwa pengguna telah berinteraksi
+                            checkMMI(); // Memeriksa MMI saat tombol diklik 
+                        });
+                    </script>        
                   </div>
                   
-                  <div class="card mt-5">
+                </div>
+                <div class="col-md-6 col-lg-6 h-auto">
+                  <div class="card mb-3">
                     <div class="card-header">
                       <div class="d-flex align-items-center">
                         <h3 class="huge mt-0 mb-0 " >MMI Scale</h3>
                         
                       </div>
                     </div>
-                    <div class="card-body pt-lg-1">
+                    <div class="card-body">
                       <div class="row">
                         <div class="col-md">
                           <div class="accordion mt-0" id="accordionExample">
@@ -288,12 +290,28 @@
                         </div>
                       </div>
                     </div>
+                    <hr>
                   </div>
                 </div>
                 
-                <!--/ Congratulations card -->
+                <!-- Transactions -->
+               
+
+               
+
+                <!-- Total Earnings -->
+               
+                <!--/ Total Earnings -->
+
+                <!-- Four Cards -->
+                
+                
+              </div>
+
+              <div class="row gy-2">
+                  <!--/ Congratulations card -->
                 <!-- Weekly Overview Chart -->
-                <div class="col-xl-6 col-md-6">
+                <div class="col-xl-12 col-md-12">
                   <div class="card p-0">
                     <div class="card-header">
                       <div class="d-flex">
@@ -322,20 +340,8 @@
                   </div>
                 </div>-->
                 <!--/ Weekly Overview Chart last-->
-
-                <!-- Transactions -->
-               
-
-               
-
-                <!-- Total Earnings -->
-               
-                <!--/ Total Earnings -->
-
-                <!-- Four Cards -->
-                
-                
               </div>
+
             </div>
             <!-- / Content -->
 
