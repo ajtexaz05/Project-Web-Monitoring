@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Data extends Model
 {
     use HasFactory;
-    protected $fillable = ['data', 'mmi'];
+    protected $fillable = ['data', 'acceleration_ns', 'acceleration_ew', 'mmi'];
 }

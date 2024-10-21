@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('data', function (Blueprint $table) {
             $table->id();
             $table->float('data');
+            $table->float('acceleration_ns');
+            $table->float('acceleration_ew');
             $table->string('mmi');
             $table->timestamps();
         });
