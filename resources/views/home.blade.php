@@ -78,9 +78,17 @@
                 <div class="col-md-6 col-lg-6 h-auto">
                   <div class="card mb-3 pt-lg-1">
                     <div class="card-body text-nowrap">
-                      <h3 class="card-title mb-4 flex-wrap text-nowrap">Current MMI</h3>
-                      <p class="mb-2">MMI Saat Ini :</p>
-                      <h1 class="text-primary mb-4" id="mmi-value">{{ $data->data }}</h1>
+                      <div class="row">
+                        <h3 class="card-title mb-4 flex-wrap text-nowrap">Current PGA & MMI</h3>
+                        <div class="col-md-6">
+                          <p class="mb-2">PGA Saat Ini :</p>
+                          <h1 class="text-primary mb-4" id="mmi-value">{{ $data->data }}</h1>
+                        </div>
+                        <div class="col-md-6">
+                          <p class="mb-2">MMI Saat Ini :</p>
+                          <h1 class="text-primary mb-4" id="mmi-value">{{ strtoupper($data->mmi) }}</h1>
+                        </div>
+                      </div>
                       <div class="alert alert-warning" id="alert-warning" role="alert" style="display: none;">
                           Peringatan! MMI di atas normal!
                       </div>
@@ -96,7 +104,7 @@
                       <audio id="danger-sound" src="/assets/sound/alert-danger.mp3" preload="auto"></audio>
               
                       <!-- Tombol untuk memicu suara -->
-                      <button id="check-mmi" class="btn btn-primary mt-3">Cek MMI</button>
+                      {{-- <button id="check-mmi" class="btn btn-primary mt-3">Cek MMI</button> --}}
                       <hr>
                       </div>
               
@@ -393,7 +401,7 @@
       const myChart = new Chart("myChart", {
         type: "line",
         data: {
-          labels: xValues,
+          // labels: xValues,
           datasets: [{ 
             data: [], // Start with an empty dataset
             borderColor: "blue",
@@ -434,21 +442,24 @@
 
             // Bagian yang mengatur format penjelasan untuk tanggal dan waktu
             // Namun bagian ini udah dihapus
-            newData.slice(0, 10).forEach((entry, index) => {
-            xValues.push(index + 1); // Gunakan angka urutan sebagai x-axis
-            data.push(entry.data);   // Masukkan data ke y-axis
-            });
-
-            // Yang bagian ini yang masih memberikan formatnya
-            // // Loop through the latest 10 entries
-            // newData.slice(0, 10).forEach(entry => {
-            //   xValues.push(entry.updated_at); // Use the updated_at for x-axis
-            //   data.push(entry.data); // Use the data for y-axis
+            // newData.slice(0, 10).forEach((entry, index) => {
+            // xValues.push(index + 1); // Gunakan angka urutan sebagai x-axis
+            // data.push(entry.data);   // Masukkan data ke y-axis
             // });
 
-            // Reverse the order of the arrays to display oldest data on the left
+            // Yang bagian ini yang masih memberikan formatnya
+            // Loop through the latest 10 entries
+            newData.slice(0, 10).forEach(entry => {
+              const time = new Date(entry.updated_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }); // Extract time in 24-hour format with seconds
+              xValues.push(time); // Use the time for x-axis
+              data.push(entry.data); // Use the data for y-axis
+            });
+
+            // Reverse the order of the arrays to display oldest data on the left();
             xValues.reverse();
             data.reverse();
+
+            
 
             // Update the chart with new data
             myChart.data.labels = xValues;
@@ -464,7 +475,7 @@
       new Chart("myChart", {
         type: "line",
         data: {
-          labels: xValues,
+          // labels: xValues,
           datasets: [{ 
             data: [], // Start with an empty dataset
             borderColor: "blue",
@@ -493,7 +504,7 @@
       });
 </script>
 
-<script>
+{{-- <script>
   var dates = ["01-Jan", "01-Feb", "01-Mar", "01-Apr", "01-May"];
   var mmiValues = [9, 8, 7, 2, 11];
   
@@ -505,7 +516,7 @@
   new Chart("myChart2", {
     type: "bar",
     data: {
-      labels: dates,
+      // labels: dates,
       datasets: [{
         backgroundColor: barColors,
         data: mmiValues
@@ -522,7 +533,7 @@
       }
     }
   });
-</script>
+</script> --}}
 
 
   
