@@ -182,18 +182,22 @@
                                                 height:40px; 
                                                 text-align:center;
                                             ">
+                                            <h3 class="card-title mt-5 mb-5 flex-wrap text-nowrap">Time</h3>
+                                            <p id="date" class="text-black mb-0">22 Oktober 2024</p>
+                                            <p id="time" style="color: black;">18:55:05 WIB</p>
+                                            <br><br>
                                             <h3 class="card-title mb-4 flex-wrap text-nowrap">Current PGA & MMI</h3>
-                                        </div>        
+                                        </div><br><br><br><br>   
                                         <div class="row text-center align-item-center">
                                             <div class="col-md-6 mt-10">
-                                                <p class="mb-2">PGA Saat Ini :</p>
-                                                <h1 class="mb-4" id="pga-value" style="color: #00448d;">{{ $data->data }}
+                                                <p class="mb-5">PGA Saat Ini :</p><br>
+                                                <h1 class="mb-4" id="pga-value" style="color: #00448d; font-size:50px;">{{ $data->data }}
                                                     cm/s<sup>2</sup>
                                                 </h1>
                                             </div>
                                             <div class="col-md-6 mt-10">
-                                                <p class="mb-2">MMI Saat Ini :</p>
-                                                <h1 class="mb-4" id="mmi-value" style="color: #00448d;">
+                                                <p class="mb-2">MMI Saat Ini :</p><br><br>
+                                                <h1 class="mb-4 fw-bolder" id="mmi-value" style="color: #00448d; font-size:80px;">
                                                     {{ strtoupper($data->mmi) }}
                                                 </h1>
                                             </div>
@@ -273,20 +277,20 @@
                     const popup = document.getElementById('popup'); // Get the popup element
 
                     // Function to update the date
-                    // function updateDate() {
-                    //     const now = new Date();
-                    //     const options = {
-                    //         year: 'numeric',
-                    //         month: 'long',
-                    //         day: 'numeric',
-                    //         weekday: 'long'
-                    //     };
-                    //     const currentDate = now.toLocaleDateString('id-ID', options); // Format date in Indonesian
-                    //     document.getElementById('date').textContent = currentDate; // Update the date element
-                    // }
+                    function updateDate() {
+                        const now = new Date();
+                        const options = {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            weekday: 'long'
+                        };
+                        const currentDate = now.toLocaleDateString('id-ID', options); // Format date in Indonesian
+                        document.getElementById('date').textContent = currentDate; // Update the date element
+                    }
 
                     // Initialize the date display when the page loads
-                    // updateDate();
+                    updateDate();
 
                     const nsChart = new Chart("nsChart", {
                         type: "line",
@@ -387,23 +391,21 @@
                         }
                     });
 
-                    // function updateTime() {
-                    //     const now = new Date();
-                    //     const hours = String(now.getHours()).padStart(2, '0');
-                    //     const minutes = String(now.getMinutes()).padStart(2, '0');
-                    //     const seconds = String(now.getSeconds()).padStart(2, '0');
-                    //     const currentTime = `${hours}:${minutes}:${seconds}`;
+                    function updateTime() {
+                        const now = new Date();
+                        const hours = String(now.getHours()).padStart(2, '0');
+                        const minutes = String(now.getMinutes()).padStart(2, '0');
+                        const seconds = String(now.getSeconds()).padStart(2, '0');
+                        const currentTime = `${hours}:${minutes}:${seconds}`;
 
-                    //     document.getElementById('time').textContent = currentTime;
-                    // }
+                        document.getElementById('time').textContent = currentTime;
+                    }
 
                     // // Update the time every second
-                    // setInterval(updateTime, 1000);
+                    setInterval(updateTime, 1000);
 
                     // // Initialize the time display when the page loads
-                    // updateTime();
-
-
+                    updateTime();
 
 
                     // Update fetchData function to include updating pgaValue and mmiValue
