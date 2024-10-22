@@ -148,7 +148,7 @@
         <img class="mb-6" src="/assets/img/danger.png" alt="">
         <h1 class="text-white mb-3">PERINGATAN!!</h1>
         <h2 class="text-white mb-3">Terjadi Gempa Besar, Lindungi Diri Anda!</h2>
-        {{-- <h3 class="text-white">Skala MMI : <span id="alertMMI">{{ strtoupper($data->mmi) }}</span></h3> --}}
+        <h3 class="text-white">Skala MMI : <span id="alertMMI">{{ strtoupper($data->mmi) }}</span></h3>
     </div>
 
     <!-- Layout wrapper -->
