@@ -10,6 +10,82 @@
 
     <title>STMKG</title>
 
+    <style>
+
+      /* Style for the pop-up message */
+      #popup {
+        display: none; /* Initially hidden */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 1000px;
+        height: 600px;
+        background-color: red;
+        color: white;
+        padding: 15px;
+        border-radius: 20px; /* Rounded corners */
+        z-index: 1000;
+        transform: translate(-50%, -50%); /* Center the pop-up */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Add shadow for visual effect */
+        
+        /* Flexbox settings */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center; /* Center text inside pop-up */
+        
+        /* Ensure the content doesn't grow unexpectedly */
+        flex-direction: column;
+        overflow: hidden;
+        font-size: 24px; /* Increase font size for visibility */
+      }
+
+      /* General header styles */
+      header {
+        display: flex;
+        justify-content: space-between; /* Space out the columns */
+        align-items: center; /* Center items vertically */
+        height: 100px;
+        background-color: #00448d;
+        padding: 0 20px; /* Add some padding to left and right */
+        box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+      }
+
+      /* Left section (time) */
+      .header-left {
+        flex: 1; /* Make sure each section takes its share of space */
+        text-align: left; /* Align time to the left */
+        font-size: 18px; /* Adjust the size of the time */
+      }
+
+      /* Center section (header title) */
+      .header-center {
+        flex: 2; /* Larger space for the title */
+        text-align: center;
+      }
+
+      .header-center h1 {
+        margin: 0; /* Remove default margin from h1 */
+        font-size: 24px;
+        color: white; /* Change text color */
+      }
+
+      /* Right section (logos) */
+      .header-right {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end; /* Align logos to the right */
+      }
+
+      .logo {
+        height: 50px; /* Adjust size of logos */
+        margin-left: 10px; /* Add some spacing between the logos */
+      }
+
+
+
+  </style>
+
     <meta name="description" content="" />
 
     <!-- Favicon -->
@@ -45,6 +121,34 @@
 </head>
 
 <body>
+
+      {{-- Header --}}
+      <header>
+        <div class="header-left">
+          <div style="
+              width:180px;
+              text-align:center;
+            ">
+            <b style="color: white;">21 Oktober 2024</b>
+            <p id="time" style="color: white; font-family: Roboto Mono;">18:55:05</p>
+          </div>
+          
+        </div>
+        
+        <div class="header-center">
+          <h1>TSUNAMI EARLY WARNING SYSTEM</h1>
+        </div>
+        
+        <div class="header-right">
+          <img src="{{ asset('assets/img/logo/LogoBMKG.png') }}" alt="Logo BMKG" class="logo">
+          <img src="{{ asset('assets/img/logo/LogoSTMKG.png') }}" alt="Logo STMKG" class="logo">
+        </div>
+      </header>
+    {{-- Header --}}
+
+    {{-- Pop Upnya --}}
+    <div id="popup">Peringatan!!! <b>Skala MMI</b> adalah <b>{{$data->mmi}}</b>!!!</div>
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -75,13 +179,13 @@
                                         <div class="row text-center align-item-center">
                                             <div class="col-md-6 mt-10">
                                                 <p class="mb-2">PGA Saat Ini :</p>
-                                                <h1 class="text-primary mb-4" id="mmi-value">{{ $data->data }}
+                                                <h1 class="mb-4" id="mmi-value" style="color: #00448d;">{{ $data->data }}
                                                     cm/s<sup>2</sup>
                                                 </h1>
                                             </div>
                                             <div class="col-md-6 mt-10">
                                                 <p class="mb-2">MMI Saat Ini :</p>
-                                                <h1 class="text-primary mb-4" id="mmi-value">
+                                                <h1 class="mb-4" id="mmi-value" style="color: #00448d;">
                                                     {{ strtoupper($data->mmi) }}</h1>
                                             </div>
                                         </div>
@@ -273,6 +377,8 @@
                     const ew = [];
                     const updatedAt = [];
 
+                    const popup = document.getElementById('popup'); // Get the popup element
+
                     // Initialize the chart
                     // Initialize the nsChart without any animation
                     // Initialize the nsChart to resemble seismic signal
@@ -379,45 +485,63 @@
 
                     // Update fetchData function to include ew data
                     function fetchData() {
-                        fetch('/getData')
-                            .then(response => response.json())
-                            .then(newData => {
-                                // Clear previous data
-                                updatedAt.length = 0;
-                                ns.length = 0;
-                                ew.length = 0;
+                      fetch('/getData')
+                          .then(response => response.json())
+                          .then(newData => {
+                              // Clear previous data
+                              updatedAt.length = 0;
+                              ns.length = 0;
+                              ew.length = 0;
 
-                                // Loop through the latest 100 entries
-                                newData.slice(0, 100).forEach(entry => { // Changed from 50 to 100
-                                    const time = new Date(entry.updated_at).toLocaleTimeString('en-GB', {
-                                        hour: '2-digit',
-                                        minute: '2-digit',
-                                        second: '2-digit',
-                                        hour12: false
-                                    }); // Extract time in 24-hour format with seconds
-                                    updatedAt.push(time); // Use the time for x-axis
-                                    ns.push(entry.acceleration_ns); // Use the data for y-axis
-                                    ew.push(entry.acceleration_ew); // Added ew data for y-axis
-                                });
+                              // Loop through the latest 100 entries
+                              newData.slice(0, 100).forEach(entry => {
+                                  const time = new Date(entry.updated_at).toLocaleTimeString('en-GB', {
+                                      hour: '2-digit',
+                                      minute: '2-digit',
+                                      second: '2-digit',
+                                      hour12: false
+                                  });
+                                  updatedAt.push(time);
+                                  ns.push(entry.acceleration_ns);
+                                  ew.push(entry.acceleration_ew);
+                              });
 
-                                // Reverse the order of the arrays to display oldest data on the left();
-                                updatedAt.reverse();
-                                ns.reverse();
-                                ew.reverse(); // Reverse ew data
+                              // Reverse the order of the arrays
+                              updatedAt.reverse();
+                              ns.reverse();
+                              ew.reverse();
 
-                                // Update the chart with new data
-                                nsChart.data.labels = updatedAt;
-                                nsChart.data.datasets[0].data = ns;
-                                ewChart.data.labels = updatedAt; // Update ewChart labels
-                                ewChart.data.datasets[0].data = ew; // Update ewChart data
-                                nsChart.update(); // Refresh the nsChart
-                                ewChart.update(); // Refresh the ewChart
-                            })
-                            .catch(error => console.error('Error fetching data:', error)); // Handle fetch errors
+                              // Update the chart with new data
+                              nsChart.data.labels = updatedAt;
+                              nsChart.data.datasets[0].data = ns;
+                              ewChart.data.labels = updatedAt;
+                              ewChart.data.datasets[0].data = ew;
+                              nsChart.update();
+                              ewChart.update();
+
+                              // Check the last entry's MMI value and show/hide popup
+                              const lastEntry = newData[0]; // Assuming the latest entry is at index 0
+                              if (lastEntry.mmi > 6) {
+                                  showPopup(); // Show popup if MMI is greater than 6
+                              } else {
+                                  closePopup(); // Hide popup if MMI is 6 or less
+                              }
+                          })
+                          .catch(error => console.error('Error fetching data:', error));
                     }
 
-                    // Fetch data every 2 seconds
-                    setInterval(fetchData, 2000);
+                      // Function to show the popup
+                      function showPopup() {
+                          popup.style.display = 'block'; // Show the popup
+                      }
+
+                      // Function to close the popup
+                      function closePopup() {
+                          popup.style.display = 'none'; // Hide the popup
+                      }
+
+                      // Fetch data every 2 seconds
+                      setInterval(fetchData, 2000);
                 </script>
 
                 <!-- endbuild -->
