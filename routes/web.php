@@ -11,4 +11,4 @@ Route::get('data', function () {
     return view('table');
 });
 
-Route::get('/homeScreen', [HomeScreen::class, 'index']);
+Route::get('/homeScreen', [DataController::class, 'dataScreen']);

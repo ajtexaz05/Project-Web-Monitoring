@@ -187,21 +187,15 @@
                                         <div class="row text-center align-item-center">
                                             <div class="col-md-6 mt-10">
                                                 <p class="mb-2">PGA Saat Ini :</p>
-                                                {{-- <h1 class="mb-4" id="pga-value" style="color: #00448d;">{{ $data->data }}
-                                                    cm/s<sup>2</sup>
-                                                </h1> --}}
-                                                <h1 class="mb-4" id="pga-value" style="color: #00448d;">42
+                                                <h1 class="mb-4" id="pga-value" style="color: #00448d;">{{ $data->data }}
                                                     cm/s<sup>2</sup>
                                                 </h1>
                                             </div>
                                             <div class="col-md-6 mt-10">
                                                 <p class="mb-2">MMI Saat Ini :</p>
                                                 <h1 class="mb-4" id="mmi-value" style="color: #00448d;">
-                                                    VI
-                                                </h1>
-                                                {{-- <h1 class="mb-4" id="mmi-value" style="color: #00448d;">
                                                     {{ strtoupper($data->mmi) }}
-                                                </h1> --}}
+                                                </h1>
                                             </div>
                                         </div>
                                     </div>
@@ -279,20 +273,20 @@
                     const popup = document.getElementById('popup'); // Get the popup element
 
                     // Function to update the date
-                    function updateDate() {
-                        const now = new Date();
-                        const options = {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            weekday: 'long'
-                        };
-                        const currentDate = now.toLocaleDateString('id-ID', options); // Format date in Indonesian
-                        document.getElementById('date').textContent = currentDate; // Update the date element
-                    }
+                    // function updateDate() {
+                    //     const now = new Date();
+                    //     const options = {
+                    //         year: 'numeric',
+                    //         month: 'long',
+                    //         day: 'numeric',
+                    //         weekday: 'long'
+                    //     };
+                    //     const currentDate = now.toLocaleDateString('id-ID', options); // Format date in Indonesian
+                    //     document.getElementById('date').textContent = currentDate; // Update the date element
+                    // }
 
                     // Initialize the date display when the page loads
-                    updateDate();
+                    // updateDate();
 
                     const nsChart = new Chart("nsChart", {
                         type: "line",
@@ -393,21 +387,21 @@
                         }
                     });
 
-                    function updateTime() {
-                        const now = new Date();
-                        const hours = String(now.getHours()).padStart(2, '0');
-                        const minutes = String(now.getMinutes()).padStart(2, '0');
-                        const seconds = String(now.getSeconds()).padStart(2, '0');
-                        const currentTime = `${hours}:${minutes}:${seconds}`;
+                    // function updateTime() {
+                    //     const now = new Date();
+                    //     const hours = String(now.getHours()).padStart(2, '0');
+                    //     const minutes = String(now.getMinutes()).padStart(2, '0');
+                    //     const seconds = String(now.getSeconds()).padStart(2, '0');
+                    //     const currentTime = `${hours}:${minutes}:${seconds}`;
 
-                        document.getElementById('time').textContent = currentTime;
-                    }
+                    //     document.getElementById('time').textContent = currentTime;
+                    // }
 
-                    // Update the time every second
-                    setInterval(updateTime, 1000);
+                    // // Update the time every second
+                    // setInterval(updateTime, 1000);
 
-                    // Initialize the time display when the page loads
-                    updateTime();
+                    // // Initialize the time display when the page loads
+                    // updateTime();
 
 
 
