@@ -37,7 +37,7 @@ class DataController extends Controller
 
     public function getData()
     {
-        $latestData = Data::latest()->take(100)->get();
+        $latestData = Data::latest()->take(200)->get();
 
         return response()->json($latestData);
     }

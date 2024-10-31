@@ -549,7 +549,7 @@
                                     ew.length = 0;
 
                                     // Loop through the latest 100 entries
-                                    newData.slice(0, 100).forEach(entry => {
+                                    newData.slice(0, 200).forEach(entry => {
                                         const time = new Date(entry.updated_at).toLocaleTimeString('en-GB', {
                                             hour: '2-digit',
                                             minute: '2-digit',
@@ -602,7 +602,7 @@
                         }
 
                         // Fetch data every 2 seconds
-                        setInterval(fetchData, 2000);
+                        setInterval(fetchData, 50);
                     </script>
 
                     <!-- endbuild -->
