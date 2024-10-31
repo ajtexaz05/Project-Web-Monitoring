@@ -147,7 +147,7 @@
         <header class="px-8">
             <div class="header-left" style="display: flex; align-items: center; height: 100%;"> <!-- Added height -->
                 <div>
-                    <p id="date" class="text-white mb-0">asdasd</p>
+                    <p id="date" class="text-white mb-0">22 Oktober 2024</p>
                     <p id="time" style="color: white;">18:55:05 WIB</p>
                 </div>
             </div>
@@ -197,17 +197,17 @@
                                 <div class="col-md-6 col-lg-6 d-flex"> <!-- Added d-flex class -->
                                     <div class="card mb-3 flex-fill"> <!-- Added flex-fill class -->
                                         <div class="card-body text-nowrap">
-                                            <h3 class="card-title mb-4 flex-wrap text-nowrap">Current PGA & MMI</h3>
+                                            <h3 class="card-title mb-5 flex-wrap text-nowrap">Current PGA & MMI</h3>
                                             <div class="row text-center align-item-center">
                                                 <div class="col-md-6 mt-10">
-                                                    <p class="mb-2">PGA Saat Ini :</p>
-                                                    <h1 class="mb-4" id="pga-value" style="color: #00448d;">{{ $data->data }}
+                                                    <p class="mb-5">PGA Saat Ini :</p><br><br>
+                                                    <h1 class="mb-4" id="pga-value" style="color: #00448d; font-size:50px;">{{ $data->data }}
                                                         cm/s<sup>2</sup>
                                                     </h1>
                                                 </div>
                                                 <div class="col-md-6 mt-10">
-                                                    <p class="mb-2">MMI Saat Ini :</p>
-                                                    <h1 class="mb-4" id="mmi-value" style="color: #00448d;">
+                                                    <p class="mb-2">MMI Saat Ini :</p><br><br>
+                                                    <h1 class="mb-4 fw-bolder" id="mmi-value" style="color: #00448d; font-size:100px;">
                                                         {{ strtoupper($data->mmi) }}
                                                     </h1>
                                                 </div>
@@ -228,15 +228,15 @@
                                                     <div class="accordion mt-0" id="accordionExample">
 
                                                         <div class="accordion-item">
-                                                            <h2 class="accordion-header" id="headingTwo">
+                                                            <h2 class="accordion-header" id="headingOne">
                                                                 <button type="button" class="accordion-button collapsed"
-                                                                    data-bs-toggle="collapse" data-bs-target="#accordionTwo"
-                                                                    aria-expanded="false" aria-controls="accordionTwo">
+                                                                    data-bs-toggle="collapse" data-bs-target="#accordionOne"
+                                                                    aria-expanded="false" aria-controls="accordionOne">
                                                                     I-II
                                                                 </button>
                                                             </h2>
-                                                            <div id="accordionTwo" class="accordion-collapse collapse"
-                                                                aria-labelledby="headingTwo"
+                                                            <div id="accordionOne" class="accordion-collapse collapse"
+                                                                aria-labelledby="headingOne"
                                                                 data-bs-parent="#accordionExample">
                                                                 <div class="accordion-body">
                                                                     <b>TIDAK DIRASAKAN (Not Felt)</b>
@@ -246,16 +246,16 @@
                                                             </div>
                                                         </div>
                                                         <div class="accordion-item">
-                                                            <h2 class="accordion-header" id="headingThree">
+                                                            <h2 class="accordion-header" id="headingTwo">
                                                                 <button type="button" class="accordion-button collapsed"
                                                                     data-bs-toggle="collapse"
-                                                                    data-bs-target="#accordionThree" aria-expanded="false"
-                                                                    aria-controls="accordionThree">
+                                                                    data-bs-target="#accordionTwo" aria-expanded="false"
+                                                                    aria-controls="accordionTwo">
                                                                     III-V
                                                                 </button>
                                                             </h2>
-                                                            <div id="accordionThree" class="accordion-collapse collapse"
-                                                                aria-labelledby="headingThree"
+                                                            <div id="accordionTwo" class="accordion-collapse collapse"
+                                                                aria-labelledby="headingTwo"
                                                                 data-bs-parent="#accordionExample">
                                                                 <div class="accordion-body">
                                                                     <b>DIRASAKAN (Felt)</b>
@@ -269,13 +269,13 @@
                                                             <h2 class="accordion-header" id="headingThree">
                                                                 <button type="button" class="accordion-button collapsed"
                                                                     data-bs-toggle="collapse"
-                                                                    data-bs-target="#accordionFour" aria-expanded="false"
-                                                                    aria-controls="accordionFour">
+                                                                    data-bs-target="#accordionThree" aria-expanded="false"
+                                                                    aria-controls="accordionThree">
                                                                     VI
                                                                 </button>
                                                             </h2>
-                                                            <div id="accordionFour" class="accordion-collapse collapse"
-                                                                aria-labelledby="headingFour"
+                                                            <div id="accordionThree" class="accordion-collapse collapse"
+                                                                aria-labelledby="headingThree"
                                                                 data-bs-parent="#accordionExample">
                                                                 <div class="accordion-body">
                                                                     <b>KERUSAKAN RINGAN (Slight Damage)</b>
@@ -286,7 +286,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="accordion-item">
-                                                            <h2 class="accordion-header" id="headingThree">
+                                                            <h2 class="accordion-header" id="headingFour">
                                                                 <button type="button" class="accordion-button collapsed"
                                                                     data-bs-toggle="collapse"
                                                                     data-bs-target="#accordionFour" aria-expanded="false"
@@ -308,16 +308,16 @@
                                                             </div>
                                                         </div>
                                                         <div class="accordion-item">
-                                                            <h2 class="accordion-header" id="headingThree">
+                                                            <h2 class="accordion-header" id="headingFive">
                                                                 <button type="button" class="accordion-button collapsed"
                                                                     data-bs-toggle="collapse"
-                                                                    data-bs-target="#accordionFour" aria-expanded="false"
-                                                                    aria-controls="accordionFour">
+                                                                    data-bs-target="#accordionFive" aria-expanded="false"
+                                                                    aria-controls="accordionFive">
                                                                     IX-XII
                                                                 </button>
                                                             </h2>
-                                                            <div id="accordionFour" class="accordion-collapse collapse"
-                                                                aria-labelledby="headingFour"
+                                                            <div id="accordionFive" class="accordion-collapse collapse"
+                                                                aria-labelledby="headingFive"
                                                                 data-bs-parent="#accordionExample">
                                                                 <div class="accordion-body">
                                                                     <b>KERUSAKAN BERAT (Heavy Damage)</b>

@@ -41,4 +41,14 @@ class DataController extends Controller
 
         return response()->json($latestData);
     }
+
+    public function dataScreen()
+    {
+        $data = Data::latest()->first();
+
+        return view(
+            'HomeScreen/homeScreen',
+            ['data' => $data]
+        );
+    }
 }
