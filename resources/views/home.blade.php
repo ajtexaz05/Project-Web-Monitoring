@@ -102,8 +102,10 @@
 
             /* Added style for the popup image */
             #popup img {
-                width: 13%; /* Set the width of the image */
-                max-width: 300px; /* Optional: Set a maximum width */
+                width: 13%;
+                /* Set the width of the image */
+                max-width: 300px;
+                /* Optional: Set a maximum width */
             }
         </style>
 
@@ -400,9 +402,14 @@
                         const ew = [];
                         const updatedAt = [];
 
-                        const pgaValue = document.getElementById('pga-value')
-                        const mmiValue = document.getElementById('mmi-value')
-                        const popup = document.getElementById('popup'); // Get the popup element
+                        const pgaValue = document.getElementById('pga-value');
+                        const mmiValue = document.getElementById('mmi-value');
+                        const popup = document.getElementById('popup');
+                        const alertMMI = document.getElementById('alertMMI');
+
+                        let popupTimeout;
+                        let popupShownTime;
+                        let lastHighMMI; // Store the last high MMI value to display
 
                         // Function to update the date
                         function updateDate() {
@@ -413,8 +420,8 @@
                                 day: 'numeric',
                                 weekday: 'long'
                             };
-                            const currentDate = now.toLocaleDateString('id-ID', options); // Format date in Indonesian
-                            document.getElementById('date').textContent = currentDate; // Update the date element
+                            const currentDate = now.toLocaleDateString('id-ID', options);
+                            document.getElementById('date').textContent = currentDate;
                         }
 
                         // Initialize the date display when the page loads
@@ -425,33 +432,33 @@
                             data: {
                                 datasets: [{
                                     data: [],
-                                    borderColor: "green", // Seismic signals are often displayed in black or dark colors
-                                    borderWidth: 2, // Make the line thicker for better visibility
+                                    borderColor: "green",
+                                    borderWidth: 2,
                                     fill: false,
-                                    tension: 0.3, // Add tension for smoother curves, simulating a waveform
-                                    pointRadius: 0 // Remove point markers
+                                    tension: 0.3,
+                                    pointRadius: 0
                                 }]
                             },
                             options: {
-                                animation: false, // Disable animation for all updates and rendering
+                                animation: false,
                                 plugins: {
                                     legend: {
-                                        display: false // Turn off the legend
+                                        display: false
                                     },
-                                    tooltip: { // Added tooltip configuration
-                                        enabled: true, // Enable tooltips
-                                        mode: 'index', // Show tooltip for all datasets at the hovered index
-                                        intersect: false, // Allow tooltips to show when hovering over the line
+                                    tooltip: {
+                                        enabled: true,
+                                        mode: 'index',
+                                        intersect: false,
                                         callbacks: {
                                             label: function(tooltipItem) {
-                                                return `Value: ${tooltipItem.raw}`; // Customize label display
+                                                return `Value: ${tooltipItem.raw}`;
                                             }
                                         }
                                     }
                                 },
                                 scales: {
                                     x: {
-                                        display: false, // Hide the x-axis
+                                        display: false
                                     },
                                     y: {
                                         title: {
@@ -461,47 +468,46 @@
                                         suggestedMin: 1,
                                         suggestedMax: 10,
                                         grid: {
-                                            color: "rgba(0, 0, 0, 0.1)", // Lighten horizontal gridlines
-                                            lineWidth: 1 // Thinner gridlines
+                                            color: "rgba(0, 0, 0, 0.1)",
+                                            lineWidth: 1
                                         }
                                     }
                                 }
                             }
                         });
 
-                        // Initialize the ewChart to resemble seismic signal
                         const ewChart = new Chart("ewChart", {
                             type: "line",
                             data: {
                                 datasets: [{
                                     data: [],
-                                    borderColor: "red", // Use red for EW seismic signal for contrast
+                                    borderColor: "red",
                                     borderWidth: 2,
                                     fill: false,
-                                    tension: 0.3, // Smooth curves to simulate a waveform
-                                    pointRadius: 0 // Remove point markers
+                                    tension: 0.3,
+                                    pointRadius: 0
                                 }]
                             },
                             options: {
-                                animation: false, // Disable animation for all updates and rendering
+                                animation: false,
                                 plugins: {
                                     legend: {
-                                        display: false // Turn off the legend
+                                        display: false
                                     },
-                                    tooltip: { // Added tooltip configuration
-                                        enabled: true, // Enable tooltips
-                                        mode: 'index', // Show tooltip for all datasets at the hovered index
-                                        intersect: false, // Allow tooltips to show when hovering over the line
+                                    tooltip: {
+                                        enabled: true,
+                                        mode: 'index',
+                                        intersect: false,
                                         callbacks: {
                                             label: function(tooltipItem) {
-                                                return `Value: ${tooltipItem.raw}`; // Customize label display
+                                                return `Value: ${tooltipItem.raw}`;
                                             }
                                         }
                                     }
                                 },
                                 scales: {
                                     x: {
-                                        display: false, // Hide the x-axis
+                                        display: false
                                     },
                                     y: {
                                         title: {
@@ -511,7 +517,7 @@
                                         suggestedMin: 1,
                                         suggestedMax: 10,
                                         grid: {
-                                            color: "rgba(0, 0, 0, 0.1)", // Light horizontal gridlines
+                                            color: "rgba(0, 0, 0, 0.1)",
                                             lineWidth: 1
                                         }
                                     }
@@ -525,30 +531,35 @@
                             const minutes = String(now.getMinutes()).padStart(2, '0');
                             const seconds = String(now.getSeconds()).padStart(2, '0');
                             const currentTime = `${hours}:${minutes}:${seconds}`;
-
                             document.getElementById('time').textContent = currentTime;
                         }
 
                         // Update the time every second
                         setInterval(updateTime, 1000);
+                        updateTime(); // Initialize the time display when the page loads
 
-                        // Initialize the time display when the page loads
-                        updateTime();
+                        function showPopup() {
+                            popup.style.display = 'flex'; // Show the popup
+                            popupShownTime = Date.now(); // Record the time the popup was shown
+                        }
 
+                        function closePopup() {
+                            const timeSinceShown = Date.now() - popupShownTime;
+                            if (timeSinceShown >= 5000) {
+                                popup.style.display = 'none'; // Hide the popup if it has been shown for at least 5 seconds
+                            } else {
+                                setTimeout(closePopup, 5000 - timeSinceShown); // Wait the remaining time if under 5 seconds
+                            }
+                        }
 
-
-
-                        // Update fetchData function to include updating pgaValue and mmiValue
                         function fetchData() {
                             fetch('/getData')
                                 .then(response => response.json())
                                 .then(newData => {
-                                    // Clear previous data
                                     updatedAt.length = 0;
                                     ns.length = 0;
                                     ew.length = 0;
 
-                                    // Loop through the latest 100 entries
                                     newData.slice(0, 200).forEach(entry => {
                                         const time = new Date(entry.updated_at).toLocaleTimeString('en-GB', {
                                             hour: '2-digit',
@@ -561,12 +572,10 @@
                                         ew.push(entry.acceleration_ew);
                                     });
 
-                                    // Reverse the order of the arrays
                                     updatedAt.reverse();
                                     ns.reverse();
                                     ew.reverse();
 
-                                    // Update the chart with new data
                                     nsChart.data.labels = updatedAt;
                                     nsChart.data.datasets[0].data = ns;
                                     ewChart.data.labels = updatedAt;
@@ -574,36 +583,35 @@
                                     nsChart.update();
                                     ewChart.update();
 
-                                    // Update pgaValue and mmiValue with the latest data
-                                    const lastEntry = newData[0]; // Assuming the latest entry is at index 0
-                                    pgaValue.textContent = `${lastEntry.data} cm/s²`; // Update PGA value
-                                    mmiValue.textContent = `${lastEntry.mmi.toUpperCase()}`; // Update MMI value
-                                    document.getElementById('alertMMI').textContent = lastEntry.mmi.toUpperCase(); // Update alertMMI
+                                    const lastEntry = newData[0];
+                                    pgaValue.textContent = `${lastEntry.data} cm/s²`;
+                                    mmiValue.textContent = `${lastEntry.mmi.toUpperCase()}`;
 
-                                    // Check the last entry's MMI value and show/hide popup
                                     const highMMI = ['vi', 'vii', 'viii', 'ix', 'x', 'xi', 'xii'];
-                                    if (highMMI.includes(lastEntry.mmi)) { // Check if lastEntry.mmi is in highMMI
-                                        showPopup(); // Show popup if MMI is in highMMI
+                                    if (highMMI.includes(lastEntry.mmi)) {
+                                        if (!popup.style.display || popup.style.display === 'none') {
+                                            lastHighMMI = lastEntry.mmi.toUpperCase();
+                                            alertMMI.textContent = lastHighMMI; // Set alert MMI when popup first appears
+                                            showPopup();
+                                        } else {
+                                            lastHighMMI = lastEntry.mmi.toUpperCase();
+                                            alertMMI.textContent = lastHighMMI; // Update alert MMI if still high
+                                        }
                                     } else {
-                                        closePopup(); // Hide popup if MMI is not in highMMI
+                                        // Only update the alertMMI if 5 seconds have passed since popup shown
+                                        const timeSinceShown = Date.now() - popupShownTime;
+                                        if (timeSinceShown >= 5000) {
+                                            closePopup();
+                                        }
                                     }
                                 })
                                 .catch(error => console.error('Error fetching data:', error));
                         }
 
-                        // Function to show the popup
-                        function showPopup() {
-                            popup.style.display = 'flex'; // Show the popup
-                        }
-
-                        // Function to close the popup
-                        function closePopup() {
-                            popup.style.display = 'none'; // Hide the popup
-                        }
-
-                        // Fetch data every 2 seconds
-                        setInterval(fetchData, 100);
+                        // Fetch data every 50 ms
+                        setInterval(fetchData, 50);
                     </script>
+
 
                     <!-- endbuild -->
 
