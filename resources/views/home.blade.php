@@ -602,7 +602,7 @@
                         }
 
                         // Fetch data every 2 seconds
-                        setInterval(fetchData, 50);
+                        setInterval(fetchData, 100);
                     </script>
 
                     <!-- endbuild -->

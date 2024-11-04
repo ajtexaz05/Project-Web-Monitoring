@@ -52,8 +52,8 @@
             /* Space out the columns */
             align-items: center;
             /* Center items vertically */
-            height: 100px;
-            background-color: #00448d;
+            height: 70px;
+            background-color: #ff8e2b;
             padding: 0 20px;
             /* Add some padding to left and right */
             box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
@@ -102,8 +102,10 @@
 
         /* Added style for the popup image */
         #popup img {
-            width: 13%; /* Set the width of the image */
-            max-width: 300px; /* Optional: Set a maximum width */
+            width: 13%;
+            /* Set the width of the image */
+            max-width: 300px;
+            /* Optional: Set a maximum width */
         }
     </style>
 
@@ -143,6 +145,25 @@
 
 <body>
 
+    {{-- Header --}}
+    <header class="px-5">
+        <div class="header-left" style="display: flex; align-items: center; height: 100%;">
+            <div>
+                <p id="date" class="text-white mb-0">22 Oktober 2024</p>
+                <p id="time" style="color: white;">18:55:05 WIB</p>
+            </div>
+        </div>
+        <div class="header-center">
+            <h1>INSTRUMENTASI-MKG</h1>
+        </div>
+
+        <div class="header-right">
+            <img src="{{ asset('assets/img/logo/LogoBMKG.png') }}" alt="Logo BMKG" class="logo">
+            <img src="{{ asset('assets/img/logo/LogoSTMKG.png') }}" alt="Logo STMKG" class="logo">
+        </div>
+    </header>
+    {{-- Header --}}
+
     {{-- Pop Upnya --}}
     <div id="popup">
         <img class="mb-6" src="/assets/img/danger.png" alt="">
@@ -179,15 +200,14 @@
                                     <div class="card-body text-nowrap">
                                         <div style="
                                                 width:1350px;
-                                                height:40px; 
+                                                height:3px; 
                                                 text-align:center;
                                             ">
-                                            <h3 class="card-title mt-5 mb-5 flex-wrap text-nowrap">Time</h3>
+                                            <!-- <h3 class="card-title mt-5 mb-5 flex-wrap text-nowrap">Time</h3>
                                             <p id="date" class="text-black mb-0">22 Oktober 2024</p>
-                                            <p id="time" style="color: black;">18:55:05 WIB</p>
-                                            <br><br>
+                                            <p id="time" style="color: black;">18:55:05 WIB</p> -->
                                             <h3 class="card-title mb-4 flex-wrap text-nowrap">Current PGA & MMI</h3>
-                                        </div><br><br><br><br>   
+                                        </div>
                                         <div class="row text-center align-item-center">
                                             <div class="col-md-6 mt-10">
                                                 <p class="mb-5">PGA Saat Ini :</p><br>
@@ -205,11 +225,11 @@
                                     </div>
                                 </div>
                             </div>
-                        
+
                         </div>
 
                         <div class="row gy-2">
-                            <div class="col-xl-12 col-md-12 mt-8">
+                            <div class="col-xl-12 col-md-12 mt-2">
                                 <div class="card p-0">
                                     <div class="card-header">
                                         <div class="d-flex">
@@ -217,17 +237,17 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <canvas id="nsChart" style="width:100%;height: 200px;"></canvas>
+                                        <canvas id="nsChart" style="width:100%;height: 180px;"></canvas>
                                     </div>
                                     <div class="card-body">
-                                        <canvas id="ewChart" style="width:100%;height: 200px;"></canvas>
+                                        <canvas id="ewChart" style="width:100%;height: 180px;"></canvas>
                                     </div>
 
                                 </div>
                                 <!-- / Content -->
 
                                 <!-- Footer -->
-                                <footer class="content-footer footer bg-footer-theme">
+                                <!-- <footer class="content-footer footer bg-footer-theme">
                                     <div class="container-xxl">
                                         <div
                                             class="footer-container d-flex align-items-center justify-content-between pt-10 flex-md-row flex-column">
@@ -241,7 +261,7 @@
 
                                         </div>
                                     </div>
-                                </footer>
+                                </footer> -->
                                 <!-- / Footer -->
 
                                 <div class="content-backdrop fade"></div>
